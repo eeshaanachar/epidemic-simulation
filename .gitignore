@@ -1,0 +1,7 @@
+# LaTex
+Documents/LaTex/*.aux
+Documents/LaTex/*.log
+Documents/LaTex/*.pdf
+Documents/LaTex/*.synctex.gz
+Documents/LaTex/*.toc
+
