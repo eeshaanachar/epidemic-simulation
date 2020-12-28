@@ -1,0 +1,155 @@
+\documentclass[14pt, a4paper]{extarticle}
+\usepackage[margin = 1in]{geometry}
+\usepackage{fancybox}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,     
+    urlcolor=cyan,
+}
+
+\begin{document}
+    \begin{titlepage}
+		\thispagestyle{empty}
+		\thisfancypage{\setlength{\fboxsep}{1pt}\doublebox}{}
+		
+		\begin{center}
+    		\includegraphics[scale=0.26]{images/jss_header.png}
+    		
+    		\vspace{0.5in}
+			Synopsis Supplement for the Final Year Project
+		
+			\vspace{0.125in}
+			{\Large \textbf{``Epidemic Simulation''}}
+			
+			\vspace{0.5in}
+			Under the guidance of
+			
+			\vspace{0.125in}
+			\textbf{Dr. H C Vijayalakshmi}
+		\end{center}
+			
+		\vspace{0.5in}
+		\hspace{0.25in}Team Number: 26
+				
+		\hspace{0.25in}Team Members:
+		
+		\vspace{0.125in}
+        \begin{table}[h!]
+            \begin{center}
+                \begin{tabular}{|c|c|c|c|} \hline
+                	\textbf{USN} & \textbf{Name} & \textbf{Section} & \textbf{Roll No.} \\ \hline
+	                01JST17CS024 & Anuj Yadav & C & 8\\ \hline
+    	            01JST17CS052 & Eeshaan Achar & C & 16\\ \hline
+        	        01JST17CS080 & Manjunath Badakar & C & 22\\ \hline
+            	    01JST17CS142 & Saurav Kumar & C & 40\\ \hline
+                \end{tabular}
+            \end{center}
+		\end{table}
+            
+        \vspace{1.5in}
+		\hspace{0.25in} Signature of Guide \hspace{1.8in} Signature of HOD
+
+		(Dr. H C Vijayalakshmi) \hspace{1.4in} (Dr. M P Pushpalatha)
+		
+		\vspace{0.25in}
+		\begin{center}       
+            \textbf{Department of Computer Science and Engineering\\2020-21}		
+		\end{center}
+	\end{titlepage}
+    
+    \newpage
+    \thispagestyle{empty}
+    \section*{Acknowledgement}
+        \paragraph{} This research has been made possible by the kind support of many individuals such as our friends and families, and organizations such as our university. We wish to extend our sincere gratitude to all of them. We would also like to express gratitude to our mentor Dr. H C Vijayalakshmi, as without her guidance in the past as well as in the coming days, this project would not have been feasible. Lastly, we would like to thank our fellow teammates for their time and efforts, without which this project would not have seen the light of the day.
+
+	\newpage
+    \thispagestyle{empty}
+    \section*{Abstract}
+        \paragraph{} This document is a supplement to the earlier submitted Synopsis and is prepared as per the guidelines issued by the Department of Computer Science and Engineering, JSS Science and Technology University. It contains a survey and review of a few more research papers in addition to the earlier ones. It also contains a feasibility check and the Software Requirements Specification (SRS) for the planned research.
+
+    \newpage
+	\thispagestyle{empty}
+	\tableofcontents
+	
+	\newpage
+	\pagenumbering{arabic}
+    \section{Literature Survey}
+        \paragraph{} We had already gone through 5 research papers in the Synopsis document, where we uncovered some of the main progress in the field of epidemic simulation. In this section, we go through 6 more papers and try to find any substantial results that can help us plan our research phase.
+        
+        \subsection{Homogeneous and network models in Epidemiology}
+            \paragraph{} An exact contact network model requires knowledge of every individual in a population and every disease-causing contact between individuals (e.g. sneezing in the case of airborne diseases or sexual contact in the case of sexually transmitted diseases). For even small populations, this is typically unfeasible, and thus the researchers worked with approximate networks. There are several techniques for gathering the information needed to build realistic contact network models. They included tracing all infected individuals and their contacts during an outbreak, surveying individuals in populations and using census, social characteristic or other collected data. The researchers also focused exclusively on static networks, i.e. networks in which contacts are assumed to be fixed during the infectious period of an individual. The permanence of contacts captured by static networks offered a more realistic model of human contact behaviour than that by traditional epidemiological models.
+            
+        \subsection{FluTE, a publicly available stochastic influenza Epidemic simulation model}
+            \paragraph{} FluTE is an individual-based simulation model of influenza epidemics. In this, researchers described the model's community structure, the natural history of influenza, and simulated interventions. Briefly, all individuals in the model are members of social mixing groups, within which influenza is transmitted by random mixing. The model can simulate several intervention strategies, and these can either change the transmission characteristics of influenza (e.g., vaccination) or change the contact probabilities between individuals (e.g., social distancing). Interventions can occur before the epidemic or in response to an ongoing epidemic.
+
+	        \paragraph{} To help prepare for future influenza seasonal epidemics or pandemics, they developed a new stochastic model of the spread of influenza across a large population. Individuals in this model have realistic social contact networks, and transmission and infections are based on the current state of knowledge of the natural history of influenza. The model has been calibrated so that outcomes are consistent with the 1957/1958 Asian A(H2N2) and 2009 pandemic A(H1N1) influenza viruses. They presented examples of how this model can be used to study the dynamics of influenza epidemics in the United States and simulate how to mitigate or delay them using pharmaceutical interventions and social distancing measures.
+            
+        \subsection{Agent-based simulation on avian influenza in Vietnam}
+            \paragraph{} In this paper, based on the daily reported number of dead poultry due to avian influenza in northern Vietnam in November of 2005, authors used a mathematical model to estimate the basic reproduction number R\textsubscript{0} of the disease. The significant value of the estimated R\textsubscript{0} explained the explosive outbreak in the poultry population. The authors developed an SIR compartment using a combination of EBM and an ABM to recapture the recorded data of the outbreak of avian influenza and to evaluate the efficiency of existing control measures. Their model assumes a totally homogeneous and well-mixed poultry population where the interaction between infected and susceptible individuals is a random process. The work concluded that the infection process of avian influenza in poultry is not significantly affected by external factors. The results inferred that a comprehensive strategy of culling, bio-security control and large-scale vaccination campaign should be taken promptly to keep the disease under control. Advantages of this approach include evaluation of control and vaccination strategies, as well as combining EBM and ABM. An Assumption was that poultry population was considered to be totally homogeneous and well mixed and this is one of the limitations of this approach.
+            
+        \subsection{Cholera Epidemic in Haiti, 2010}
+            \paragraph{} In this paper the authors built a compartmental transmission model for the Vibrio Cholera Epidemic in Haiti in 2010 and 2011 and explored potential effects of disease-control strategies. They developed an SIR model with the addition of a water compartment. The water compartment could be contaminated by infected or infectious persons and could in turn infect susceptible persons. The models represented the population of each of Haiti’s ten administrative regions. These populations were combined to form a meta-population model, in which disease could spread both within a given region and between regions reflecting the movement of people between different regions. It was found that Cholera spread between two regions is proportional to the population size of both regions and inversely proportional to the square-distance between regional centroids. Analysis of changes in disease dynamics over time suggests that public health interventions have substantially affected this epidemic. A limited vaccine supply provided late in the epidemic was projected to have a modest effect. One major assumption was that cholera could be transmitted through either close contacts or contaminated water. However, waterborne transmission and consumption of food items contaminated with infective water, which are important ways of cholera transmission, were not considered in this simulation.
+            
+        \subsection{Global seasonal occurrence of MERS-CoV infection}
+            \paragraph{} This paper aims at investigating the global seasonal occurrence of Middle East Respiratory Syndrome coronavirus (MERS-CoV) outbreaks. The authors obtained the data on the prevalence and occurrence of Middle East Respiratory Syndrome Coronavirus (MERS-CoV) infection from the World Health Organization (WHO) for all the MERS cases reported from the various countries and their allies ministries. The conclusion of this research was that MERS-CoV infection affected 2048 people worldwide; 82\% cases were reported from the Saudi Arabia and 17.96\% cases were reported from other countries worldwide. The maximum number of cases 23.14\% were reported in the month of June. However, low occurrence of infections were seen in the month of January. The health sectors need of awareness programs to mandate implementation of effective control strategies and stringent compliance with better standards of health and hygiene nationwide. The health officials also need to highlight the seasonal occurrence of MERS-CoV suggesting to take the better preventive measures to minimize the disease burden globally.
+            
+        \subsection{The effects of border control and quarantine measures on the spread of COVID-19}
+            \paragraph{} In this research paper the authors have developed an ``easy-to-use" mathematical framework extending from a meta-population model embedding city-to-city connections to arrange the dynamics of transmission waves caused by imported (people who have been associated with travel history from an epidemic region), secondary, and others from an outbreak source region when control measures are considered. Using the cumulative number of the secondary cases, the authors try to determine the probability of community spread.
+
+            \paragraph{} Using the top 10 visiting cities from Wuhan in China as an example, it is demonstrated that the arrival time and the dynamics of the outbreaks at these cities can be successfully predicted under the reproduction number R\textsubscript{0} = 2.92 and incubation period T = 5.2 days. It is also shown in the study that although control measures can gain extra 32.5 and 44.0 days in arrival time through an intensive border control measure and a shorter time to quarantine under a low R\textsubscript{0} (1.4). The study allows to assess the effects of border control and quarantine measures on the emergence and global spread of COVID-19 in a fully connected world using the dynamics of the secondary cases and demonstrated that after the reporting delay was estimated, the dynamics of the outbreaks at connected cities can be successfully reconstructed using both the imported and the secondary cases. The result implies that all the connected (direct or indirect) countries are having a great risk of outbreak and that if the epidemic growth at the source location is high, even a near full-scale border control without proper quarantine measures, will have only limited effects.
+    
+    \newpage
+    \section{Feasibility Study}
+        \paragraph{} A feasibility study in the context of research is an assessment of the practicality of the proposed research. It aims to objectively and rationally uncover the opportunities and threats present, the resources required to carry through, and ultimately the prospects for success.
+
+        \paragraph{} From the literature survey, we see that there has been plenty of research in this field, which means this isn't an unexplored field, thus greatly ensuring practicality. However, most of the existing literature focuses on a particular disease, thus providing an opportunity for more generalized research that can be applied to a wide variety of diseases. Considering the prevailing pandemic situation, this research has become more relevant than ever. We also have ample time to carry out this research. Considering all these aspects, we believe the research is feasible while being complex enough to be considered as a Final Year Project at the undergraduate level.
+    
+    \section{Requirements Engineering}
+        \paragraph{} As this is a research-based project, and there are no stakeholders other than us, the researchers, the traditional approach of requirements engineering and SRS documentation isn't applicable here. However, in this section, we try to formalize the goals and objectives of this research in a more systematic way.
+        
+        \subsection{Requirements Collection}
+            \paragraph{} The requirements gathering and negotiation phases were conducted by virtual meetings of the team members and the mentor. Further discussions were carried out by the team members over a period of two weeks and clarity was obtained with respect to the research work. It was decided that in order to model the population in our simulation we will be using a SIR model, as the literature survey revealed that most research on this topic used the same. The different parameters to be considered in the research include disease parameters such as its incubation period, the total time an individual is affected on an average, the mortality rate, the probability and radius of infection, etc. and social parameters such as probability and strictness of quarantine measures, the social distancing maintained, the rate of travel, presence of central locations and communities, etc.
+            
+        \subsection{Software Requirements Specification}
+            \paragraph{} Once again we would like to stress that this is a research and hence the SRS is a flexible one, accommodating changes if and when needed.
+            
+            \subsubsection{Software Requirements}
+                \begin{itemize}
+                    \item Python 3.x, preferably Python 3.7+ with an iPython (interactive Python) environment.
+                    \item NetworkX and other auxiliary libraries as needed.
+                    \item Windows, Linux or any other platform capable of running Python.
+                \end{itemize}
+            
+            \subsubsection{Hardware Requirements}
+                \paragraph{} There is no official documentation on hardware requirements for Python. Therefore we believe any computer system with sufficiently modern hardware and capable of running any modern OS should suffice.
+            
+            \subsubsection{Input and Output Requirements}
+                \paragraph{} The inputs will be in the form of parameters specific to the disease and also to the social structure being simulated. The output will be a graph of the SIR model over time. The output can also contain additional graphs to better aid the research and conclusions.
+            
+            \subsubsection{Other Non-functional Requirements}
+                \begin{itemize}
+                    \item The research must be completed well within the stipulated time.
+                    \item The code must be well written and well documented for maintenance purposes.
+                    \item The output must not take more than a few seconds to be processed and displayed.
+                    \item The research must be able to scale up for a simulation with a larger population if and when more powerful hardware is available.
+                \end{itemize}
+    
+    \newpage
+    \section{References}
+	    \begin{itemize}
+            \item Bansal, S., Grenfell, B. \& Meyers, L. (2007). When individual behaviour matters: homogeneous and network models in epidemiology. Retrieved from \url{https://doi.org/10.1098/rsif.2007.1100}
+            
+            \item Chao, D., Halloran, E. et al. (2010). FluTE, a Publicly Available Stochastic Influenza Epidemic Simulation Model. Retrieved from \url{https://doi.org/10.1371/journal.pcbi.1000656}
+            
+            \item Nguyen, D., Deguchi, H. et al. (2010). Agent-based simulation on avian influenza in Vietnam: Basic characteristics of the epidemic and efficiency evaluation of control measures. Retrieved from \url{https://ieeexplore.ieee.org/abstract/document/5530215}
+            
+            \item Tuite, A., Eisenberg, M. et al. (2011). Cholera Epidemic in Haiti, 2010: Using a Transmission Model to Explain Spatial Spread of Disease and Identify Optimal Control Interventions. Retrieved from \url{www.researchgate.net/publication/50304455}
+            
+            \item Nassar, M., Meo, S. et al. (2018). Global seasonal occurrence of Middle East Respiratory Syndrome Coronavirus (MERS-CoV) infection. Retrieved from \url{www.researchgate.net/publication/326041885}
+            
+            \item Hossain, M. et al. (2020). The effects of border control and quarantine measures on the spread of COVID-19. Retrieved from \url{www.sciencedirect.com/science/article/pii/S1755436520300244}
+        \end{itemize}
+            
+\end{document}
