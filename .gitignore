@@ -5,3 +5,9 @@ Documents/LaTex/*.pdf
 Documents/LaTex/*.synctex.gz
 Documents/LaTex/*.toc
 
+# Dev
+.vscode
+env
+
+# Other
+__pycache__
