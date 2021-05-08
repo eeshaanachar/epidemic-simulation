@@ -10,4 +10,6 @@ Documents/LaTex/*.toc
 env
 
 # Other
-__pycache__
+.DS_Store
+graphs
+*css.map

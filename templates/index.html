@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/style.css">
+    <title>Epidemic Simulation</title>
+</head>
+<body>
+    <div class="card">
+        <img src="{{ output.outputImageUrl }}" alt="simulation result" class="card-img-top">
+        <div class="key-stats">
+            <span class="badge badge-primary">Peak Cases: {{ output.peakCases }}</span>
+            <span class="badge badge-primary">Epidemic Duration: {{ output.epidemicDuration }}</span>
+        </div>
+        <form method="post" class="card-body">
+            <legend class="card-title text-center">Control Panel</legend>
+            <div class="fields">
+                {% for key, val in input.items() %}
+                <div>
+                    <label for="{{ key }}">{{ field_metadata[key].name }}</label>
+                    <input type="range" name="{{ key }}" id="{{ key }}" value="{{ val }}" step="{{ field_metadata[key].step or 1 }}"
+                        min="{{ field_metadata[key].minVal }}" max="{{ field_metadata[key].maxVal }}">
+                    <span>{{ val }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            <input type="submit" class="btn" value="Run Simulation">
+        </form>
+    </div>
+    <script src="static/app.js"></script>
+</body>
+</html>
