@@ -24,8 +24,8 @@ def index():
     if request.method == 'GET':
         output = {
             Keys.OUTPUT_IMAGE_URL: 'static/graphs/baseline.png',
-            Keys.EPIDEMIC_DURATION: 48,
-            Keys.PEAK_CASES: 707,
+            Keys.EPIDEMIC_DURATION: 22,
+            Keys.PEAK_CASES: 875,
         }
         return render_template('index.html', input=default_app_input, output=output, field_metadata=field_metadata)
     try:

@@ -82,7 +82,7 @@ class EpidemicSimulation:
             if does_infection_spread:
                 return True
 
-            return False
+        return False
 
 
     def contaminate(self):

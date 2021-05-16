@@ -72,7 +72,7 @@ default_app_input = {
     'network_config.' + Keys.NUMBER_OF_PHYICAL_CONTACTS_VARIATION: 2,
     'virus_config.' + Keys.AVERAGE_DURATION: 9, # days
     'virus_config.' + Keys.DURATION_VARIATION: 2, # days
-    'virus_config.' + Keys.DEATH_PROBABILITY: 0.01,
+    'virus_config.' + Keys.DEATH_PROBABILITY: 0.05,
     'virus_config.' + Keys.INFECTION_PROBABILITY: 0.05,
     'virus_config.' + Keys.INFECTION_RADIUS: 2, # metres
     'virus_config.' + Keys.ASYMPTOTIC_PROBABILITY: 0.1,
@@ -94,7 +94,7 @@ field_metadata = {
     'network_config.' + Keys.AVERAGE_DEGREE: {
         'name': 'Average friend count (node degree)',
         'minVal': 1,
-        'maxVal': 500,
+        'maxVal': 250,
     },
     'network_config.' + Keys.QUARANTINE_STRICTNESS: {
         'name': 'Quarantine Strictness',
@@ -204,7 +204,7 @@ field_metadata = {
         'name': 'Infection radius of the Virus',
         'minVal': 0.1,
         'maxVal': 10,
-        'step': 0.1
+        'step': 0.05
     },
     'virus_config.' + Keys.ASYMPTOTIC_PROBABILITY: {
         'name': 'Probability of infection to be asymptomatic',
