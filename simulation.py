@@ -1,4 +1,3 @@
-import math
 import matplotlib.pyplot as plt
 import random
 from datetime import datetime
@@ -39,6 +38,7 @@ class EpidemicSimulation:
             self.network.nodes[node_id][Keys.TRAVEL_PROBABILITY] = network_config[Keys.AVERAGE_TRAVEL_FACTOR] + travelVariation
             
             self.network.nodes[node_id][Keys.STATUS] = 'S'
+            self.network.nodes[node_id][Keys.SECONDARY_INFECTIONS] = 0
 
         for _ in range(network_config[Keys.CENTRAL_HUB_COUNT]):
             node_id = random.randint(0, self.network.number_of_nodes() - 1)
@@ -96,8 +96,8 @@ class EpidemicSimulation:
         self.network.nodes[random_node_id][Keys.DAYS_REMAINING] = self.virus_config[Keys.AVERAGE_DURATION] + durationVariation
         self.network.nodes[random_node_id][Keys.STATUS] = 'I'
         bfs_queue = [random_node_id]
-        susceptible, infected, removed = self.network.number_of_nodes() - 1, 1, 0
-        sir_stats = [(susceptible, infected, removed)]
+        susceptible, infected, removed, secondary_infections = self.network.number_of_nodes() - 1, 1, 0, 0
+        statistics = [(susceptible, infected, removed, 0)]
 
         while bfs_queue:
 
@@ -114,6 +114,7 @@ class EpidemicSimulation:
                     node[Keys.STATUS] = 'R'
                     infected -= 1
                     removed += 1
+                    secondary_infections += node[Keys.SECONDARY_INFECTIONS]
                     continue
 
                 if node[Keys.STATUS] != 'Q' and self.network.graph[Keys.AVAILABLE_BEDS] != 0:
@@ -141,54 +142,64 @@ class EpidemicSimulation:
                         bfs_queue.append(neighbor_id)
                         susceptible -= 1
                         infected += 1
+                        self.network.nodes[node_id][Keys.SECONDARY_INFECTIONS] += 1
 
-            sir_stats.append((susceptible, infected, removed))
+            statistics.append((susceptible, infected, removed, secondary_infections))
             bfs_queue = [x for x in bfs_queue if self.network.nodes[x][Keys.STATUS] != 'R']
             random.shuffle(bfs_queue)
 
-        return sir_stats
+        return statistics
 
 
     def simulate(self):
         
-        sir_stats = self.contaminate()
+        statistics = self.contaminate()
+        x = list(range(len(statistics)))
 
-        result = {
-            Keys.EPIDEMIC_DURATION: len(sir_stats),
-            Keys.PEAK_CASES: max(sir_stat[1] for sir_stat in sir_stats)
-        }
-
-        while len(sir_stats) < 50:
-            sir_stats.append(sir_stats[-1])
-        x = list(range(len(sir_stats)))
-
-        susceptible = [y[0] + y[1] for y in sir_stats]
+        susceptible = [sum(statistic[:2]) for statistic in statistics]
         susceptible_smooth = gaussian_filter1d(susceptible, sigma=2)
-        infected = [y[1] for y in sir_stats]
+        infected = [statistic[1] for statistic in statistics]
         infected_smooth = gaussian_filter1d(infected, sigma=2)
-        removed = [sum(y) for y in sir_stats]
+        removed = [sum(statistic[:3]) for statistic in statistics]
 
-        yesterday_stat = sir_stats[0]
-        new_cases = [1]
-        for today_stat in sir_stats[1:]:
-            new_cases.append(today_stat[1] - yesterday_stat[1] + today_stat[2] - yesterday_stat[2])
-            yesterday_stat = today_stat
+        effective_reproduction, new_cases = [1], [1]
+        yesterday_statistic = statistics[0]
+        for today_statistic in statistics[1:]:
+            infected_delta = today_statistic[1] - yesterday_statistic[1]
+            recovery_delta = today_statistic[2] - yesterday_statistic[2]
+            new_cases.append(infected_delta + recovery_delta)
+            if recovery_delta:
+                secondary_delta = today_statistic[3] - yesterday_statistic[3]
+                effective_reproduction.append(secondary_delta / recovery_delta)
+            else:
+                effective_reproduction.append(effective_reproduction[-1])
+            yesterday_statistic = today_statistic
+        shift_amount = round(self.virus_config[Keys.AVERAGE_DURATION] * (1 - self.virus_config[Keys.DEATH_PROBABILITY]) / 2)
+        effective_reproduction_3_day_smooth = [sum(effective_reproduction[max(i - 3, 0) : i + 1]) / 3 for i in x]
+        effective_reproduction_smooth_shift = effective_reproduction_3_day_smooth[shift_amount:] + [0] * shift_amount
 
-        tot_cases = [y[1] + y[2] for y in sir_stats]
+        total_cases = [statistic[1] + statistic[2] for statistic in statistics]
 
         fig, axes = plt.subplots(2, 2, figsize=(10, 6))
         fig.tight_layout(h_pad=2, w_pad=2)
+        axes[0][0].title.set_text('SIR Plot')
         axes[0][0].fill_between(x, removed, color='palegreen')
         axes[0][0].fill_between(x, susceptible_smooth, color='royalblue')
         axes[0][0].fill_between(x, infected_smooth, color='orangered')
-        axes[0][0].plot(x, [self.network.graph[Keys.AVAILABLE_BEDS] for _ in range(len(sir_stats))], color='black')
-        axes[0][0].title.set_text('SIR Plot')
-        axes[1][0].bar(x, new_cases)
-        axes[1][0].title.set_text('New Cases')
-        axes[0][1].plot(x, tot_cases)
+        axes[0][0].plot(x, [self.network.graph[Keys.AVAILABLE_BEDS] for _ in x], color='black')
         axes[0][1].title.set_text('Total Cases')
+        axes[0][1].plot(x, total_cases)
+        axes[1][0].title.set_text('Effective Reproduction (R)')
+        axes[1][0].bar(x, effective_reproduction_smooth_shift)
+        axes[1][0].plot(x, [1 for _ in x], color='black')
+        axes[1][1].title.set_text('New Cases')
+        axes[1][1].bar(x, new_cases)
         filename = f'static/graphs/{datetime.now()}.png'
         plt.savefig(filename, bbox_inches='tight', dpi=256)
-        result[Keys.OUTPUT_IMAGE_URL] = filename
-        
-        return result
+
+        return {
+            Keys.EPIDEMIC_DURATION: len(statistics),
+            Keys.PEAK_CASES: max(infected),
+            Keys.TOTAL_CASES: total_cases[-1],
+            Keys.OUTPUT_IMAGE_URL: filename,
+        }

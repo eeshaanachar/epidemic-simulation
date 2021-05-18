@@ -26,6 +26,7 @@ def index():
             Keys.OUTPUT_IMAGE_URL: 'static/graphs/baseline.png',
             Keys.EPIDEMIC_DURATION: 22,
             Keys.PEAK_CASES: 875,
+            Keys.TOTAL_CASES: 1000,
         }
         return render_template('index.html', input=default_app_input, output=output, field_metadata=field_metadata)
     try:

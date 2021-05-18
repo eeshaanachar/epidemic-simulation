@@ -12,6 +12,7 @@
     <div class="card">
         <img src="{{ output.outputImageUrl }}" alt="simulation result" class="card-img-top">
         <div class="key-stats">
+            <span class="badge badge-primary">Total Cases: {{ output.totalCases }}</span>
             <span class="badge badge-primary">Peak Cases: {{ output.peakCases }}</span>
             <span class="badge badge-primary">Epidemic Duration: {{ output.epidemicDuration }}</span>
         </div>
